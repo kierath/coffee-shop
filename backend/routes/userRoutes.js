@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../config/db');
+const bcrypt = require('bcryptjs');
 
 // GET ALL USERS
 router.get('/', async (req, res) => {
@@ -26,13 +27,18 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST A NEW USER
+// POST A NEW USER (with password hashing)
 router.post('/', async (req, res) => {
   try {
     const { name, email, password } = req.body;
+
+    //HASH PASSWORD
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const result = await pool.query(
       'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id, name, email',
-      [name, email, password]
+      [name, email, hashedPassword]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
@@ -41,15 +47,25 @@ router.post('/', async (req, res) => {
   }
 });
 
-// UPDATE A USER BY ID
+// UPDATE A USER BY ID (hash password if provided)
 router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { name, email, password } = req.body;
-    const result = await pool.query(
-      'UPDATE users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING id, name, email',
-      [name, email, password, id]
-    );
+
+    let query, values;
+
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      query = 'UPDATE users SET name=$1, email=$2, password=$3 WHERE id=$4 RETURNING id, name, email';
+      values = [name, email, hashedPassword, id];
+    } else {
+      query = 'UPDATE users SET name=$1, email=$2 WHERE id=$3 RETURNING id, name, email';
+      values = [name, email, id];
+    }
+
+    const result = await pool.query(query, values);
     if (result.rows.length === 0) return res.status(404).json({ message: 'User not found' });
     res.json(result.rows[0]);
   } catch (err) {

@@ -35,14 +35,28 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
 
-    if (user.rows.length === 0) return res.status(400).json({ message: 'Invalid credentials' });
+    //FIND USER BY EMAIL
+    const userResult = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    if (userResult.rows.length === 0) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
 
-    const validPass = await bcrypt.compare(password, user.rows[0].password);
-    if (!validPass) return res.status(400).json({ message: 'Invalid credentials' });
+    const user = userResult.rows[0];
 
-    res.json({ id: user.rows[0].id, name: user.rows[0].name, email: user.rows[0].email });
+    //COMPARE PASSWORD
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    //RETURN USER DATA (excluding password)
+    res.json({
+      id: user.id,
+      name: user.name,
+      email: user.email
+    });
+
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
