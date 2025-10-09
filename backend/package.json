@@ -23,6 +23,8 @@
     "express": "^5.1.0",
     "nodemon": "^3.1.10",
     "pg": "^8.16.3",
-    "pg-pool": "^3.10.1"
+    "pg-pool": "^3.10.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   }
 }

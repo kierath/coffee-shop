@@ -8,6 +8,8 @@ const authRoutes = require('./routes/authRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
+const setupSwagger = require('./config/swagger');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -29,5 +31,7 @@ app.use('/cart', cartRoutes);
 //ORDER ROUTES
 app.use('/orders', orderRoutes);
 
+//SWAGGER DOCS
+setupSwagger(app);
 
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
