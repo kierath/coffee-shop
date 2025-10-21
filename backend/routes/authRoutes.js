@@ -8,19 +8,35 @@ const pool = require('../config/db');
 /**
  * REGISTER NEW USER
  */
+
 router.post('/register', async (req, res) => {
+  
   try {
     const { name, email, password } = req.body;
 
-    const userCheck = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-    if (userCheck.rows.length > 0) return res.status(400).json({ message: 'User already exists' });
+    const userResult = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
 
+    if (userResult.rows.length > 0) {
+      const existingUser = userResult.rows[0];
+      if (existingUser.password) {
+        return res.status(400).json({ message: 'User already exists' });
+      } else {
+        // Google-only account also have a password
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const update = await pool.query(
+          'UPDATE users SET password = $1, provider = $2 WHERE email = $3 RETURNING id, name, email',
+          [hashedPassword, 'local', email]
+        );
+        return res.status(200).json(update.rows[0]);
+      }
+    }
+
+    //NEW LOCAL USER
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await pool.query(
-      'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id, name, email',
-      [name, email, hashedPassword]
+      'INSERT INTO users (name, email, password, provider) VALUES ($1, $2, $3, $4) RETURNING id, name, email',
+      [name, email, hashedPassword, 'local']
     );
-
     res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error(err);
