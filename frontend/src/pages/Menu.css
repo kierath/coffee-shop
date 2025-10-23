@@ -1,0 +1,601 @@
+/* ===========================
+   GENERAL CONTAINER / LAYOUT
+=========================== */
+.menu-container {
+    width: 100vw;
+    max-width: 100vw;
+    padding: 2rem 3rem;
+    font-family: 'Inter', sans-serif;
+    color: #373737;
+    background-color: #FFF8EA;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.menu-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.menu-item {
+    background: #fff;
+    padding: 1.5rem 1.2rem;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 550px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+/* ===========================
+   MENU HEADER
+=========================== */
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.menu-header h1 {
+    flex: 1;
+    text-align: center;
+    font-size: 4.3rem;
+    font-weight: 800;
+    color: #373737;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    letter-spacing: 5px;
+}
+
+.back-btn,
+.basket-btn {
+    padding: 0.8rem 1.5rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.2rem;
+}
+
+/* ===========================
+   MENU SECTIONS
+=========================== */
+.menu-section-dark-roasts,
+.menu-section-cold-arsenal,
+.menu-section-energy-weapons {
+    background-color: #FFFFF9;
+    padding: 2rem 0;
+    border-radius: 2rem;
+    margin: 1rem 0 2rem 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.menu-section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0 2rem;
+}
+
+/* ---- CATEGORY TITLES ---- */
+.menu-section-dark-roasts h2 {
+    color: #6F2F01;
+}
+
+.menu-section-cold-arsenal h2 {
+    color: #03009E;
+}
+
+.menu-section-energy-weapons h2 {
+    color: #992400;
+}
+
+.menu-section-dark-roasts h4 {
+    color: #934008;
+}
+
+.menu-section-cold-arsenal h4 {
+    color: #0A36F5;
+}
+
+.menu-section-energy-weapons h4 {
+    color: #AD1E0E;
+}
+
+.menu-section-dark-roasts .menu-item-header h3,
+.menu-section-dark-roasts .menu-item-header .price {
+    color: #6F2F01;
+}
+
+.menu-section-cold-arsenal .menu-item-header h3,
+.menu-section-cold-arsenal .menu-item-header .price {
+    color: #03009E;
+}
+
+.menu-section-energy-weapons .menu-item-header h3,
+.menu-section-energy-weapons .menu-item-header .price {
+    color: #992400;
+}
+
+.menu-section-dark-roasts .desc {
+    color: #8C390F;
+}
+
+.menu-section-cold-arsenal .desc {
+    color: #0C34F3;
+}
+
+.menu-section-energy-weapons .desc {
+    color: #A31404;
+}
+
+/* ===========================
+   TEXT STYLES
+=========================== */
+.menu-section-dark-roasts h2,
+.menu-section-cold-arsenal h2,
+.menu-section-energy-weapons h2 {
+    font-size: 3rem;
+    letter-spacing: 0.3rem;
+    font-weight: 800;
+    padding: 0 0.5rem;
+}
+
+.menu-section-dark-roasts h4,
+.menu-section-cold-arsenal h4,
+.menu-section-energy-weapons h4 {
+    font-size: 1.5rem;
+    letter-spacing: 0.2rem;
+    font-weight: 800;
+    padding: 0.5rem 0.5rem;
+}
+
+.menu-section-dark-roasts .menu-item-header h3,
+.menu-section-cold-arsenal .menu-item-header h3,
+.menu-section-energy-weapons .menu-item-header h3,
+.menu-section-dark-roasts .menu-item-header .price,
+.menu-section-cold-arsenal .menu-item-header .price,
+.menu-section-energy-weapons .menu-item-header .price {
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+.menu-section-dark-roasts .desc,
+.menu-section-cold-arsenal .desc,
+.menu-section-energy-weapons .desc {
+    font-style: italic;
+    font-weight: 800;
+    font-size: 1rem;
+    margin: 1rem 0;
+}
+
+/* ===========================
+   LOGO BOXES
+=========================== */
+.dark-roast-menu-logo-box,
+.cold-arsenal-menu-logo-box,
+.energy-weapons-menu-logo-box {
+    width: 80px;
+    height: 80px;
+    border-radius: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark-roast-menu-logo-box {
+    background: linear-gradient(90deg, #EA6200 0%, #893900 100%);
+    border: 2px solid #FFA767;
+}
+
+.cold-arsenal-menu-logo-box {
+    background: linear-gradient(90deg, #0040FF 0%, #03009E 100%);
+    border: 2px solid #556CFF;
+}
+
+.energy-weapons-menu-logo-box {
+    background: linear-gradient(90deg, #FFB200 0%, #FF3C00 100%);
+    border: 2px solid #FFA621;
+}
+
+.dark-roast-menu-logo-box img,
+.cold-arsenal-menu-logo-box img,
+.energy-weapons-menu-logo-box img {
+    width: auto;
+    height: auto;
+    max-width: 70%;
+    max-height: 70%;
+    object-fit: contain;
+    mix-blend-mode: screen;
+}
+
+/* ===========================
+   ADD ITEM AND QUANTITY BUTTONS
+=========================== */
+.add-btn.dark,
+.add-btn.cold,
+.add-btn.energy {
+    width: 100%;
+    height: 3.5rem;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-weight: 800;
+    color: #fff;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.add-btn.dark {
+    background: linear-gradient(90deg, #EA6200 0%, #893900 100%);
+}
+
+.add-btn.cold {
+    background: linear-gradient(90deg, #0040FF 0%, #03009E 100%);
+}
+
+.add-btn.energy {
+    background: linear-gradient(90deg, #FFB200 0%, #FF3C00 100%);
+}
+
+.item-controls.dark,
+.item-controls.cold,
+.item-controls.energy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.item-controls.dark button,
+.item-controls.cold button,
+.item-controls.energy button {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+    background: #D9D9D9;
+    color: #373737;
+}
+
+.item-controls span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 35px;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #373737;
+}
+
+/* ===========================
+   BACK AND BASKET BUTTONS
+=========================== */
+.back-btn {
+    background: #FFFFF9;
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    width: 300px;
+    font-size: 1.6rem;
+    color: #373737;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.back-btn:hover,
+.basket-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.basket-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #FFFFF9;
+    border-radius: 0.5rem;
+    width: 300px;
+    font-size: 1.6rem;
+    color: #373737;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 75px;
+}
+
+.basket-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.basket-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.arrow-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.basket-count {
+    position: absolute;
+    top: -30px;
+    right: -95px;
+    background-color: #FFFFF9;
+    color: #373737;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===========================
+   LINE / DIVIDERS
+=========================== */
+.line-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.line-container h5 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #393939;
+    letter-spacing: 1px;
+    padding: 1rem 0 0.5rem 0;
+}
+
+.gradient-line {
+    height: 9px;
+    width: 20%;
+    background: linear-gradient(to right,
+            rgba(105, 105, 105, 0.1),
+            rgba(57, 57, 57, 0.5),
+            rgba(105, 105, 105, 0.1));
+    border-radius: 2px;
+}
+
+/* ===========================
+   MEDIA QUERIES
+=========================== */
+@media (max-width: 1300px) {
+    .menu-items {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    .menu-header h1 {
+        font-size: 4rem;
+    }
+
+    .basket-btn {
+        width: 80px;
+        font-size: 0.8rem;
+        height: 80px;
+    }
+
+    .back-btn {
+        width: 80px;
+        height: 80px;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .basket-text,
+    .back-text {
+        display: none;
+    }
+
+
+    .basket-count {
+        top: -30px;
+        right: -30px;
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+        font-weight: 800;
+    }
+
+    .gradient-line {
+        height: 7px;
+        width: 45%;
+    }
+}
+
+@media (max-width: 700px) {
+    .menu-items {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .menu-container {
+        padding: 2rem;
+        width: 100%;
+    }
+
+    .menu-item {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .menu-item-header {
+        margin-bottom: 0.3rem;
+    }
+
+    .dark-roast-menu-logo-box,
+    .cold-arsenal-menu-logo-box,
+    .energy-weapons-menu-logo-box {
+        width: 40px;
+        height: 40px;
+        border-radius: 0.6rem;
+    }
+
+    .dark-roast-menu-logo-box img,
+    .cold-arsenal-menu-logo-box img,
+    .energy-weapons-menu-logo-box img {
+        max-width: 60%;
+        max-height: 60%;
+    }
+
+    .menu-section-dark-roasts h2,
+    .menu-section-cold-arsenal h2,
+    .menu-section-energy-weapons h2 {
+        font-size: 1.3rem;
+        letter-spacing: 0.1rem;
+        padding: 0;
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    .menu-section-dark-roasts h4,
+    .menu-section-cold-arsenal h4,
+    .menu-section-energy-weapons h4 {
+        font-size: 0.6rem;
+        letter-spacing: 0.1rem;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menu-section-dark-roasts .menu-item-header h3,
+    .menu-section-cold-arsenal .menu-item-header h3,
+    .menu-section-energy-weapons .menu-item-header h3,
+    .menu-section-dark-roasts .menu-item-header .price,
+    .menu-section-cold-arsenal .menu-item-header .price,
+    .menu-section-energy-weapons .menu-item-header .price {
+        font-size: 0.8rem;
+        font-weight: 900;
+    }
+
+    .menu-section-dark-roasts .desc,
+    .menu-section-cold-arsenal .desc,
+    .menu-section-energy-weapons .desc {
+        font-size: 0.6rem;
+        margin: 0.3rem 0 0.5rem 0;
+        font-weight: 750;
+    }
+
+    .add-btn.dark,
+    .add-btn.cold,
+    .add-btn.energy {
+        font-size: 0.65rem;
+        height: 1.5rem;
+        padding: 0 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .item-controls.dark button,
+    .item-controls.cold button,
+    .item-controls.energy button {
+        width: 20px;
+        height: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border-radius: 0.3rem;
+    }
+
+    .item-controls span {
+        width: 25px;
+        height: 25px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .basket-text,
+    .back-text {
+        display: none;
+    }
+
+    .basket-icon,
+    .arrow-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .basket-btn {
+        width: 50px;
+        font-size: 0.8rem;
+        height: 50px;
+    }
+
+    .back-btn {
+        width: 50px;
+        height: 50px;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .basket-count {
+        top: -10px;
+        right: -10px;
+        width: 20px;
+        height: 20px;
+        font-size: 0.8rem;
+        font-weight: 900;
+    }
+
+    .menu-header {
+        margin: 0;
+    }
+
+    .menu-header h1 {
+        font-size: 1.6rem;
+        letter-spacing: 2px;
+    }
+
+
+    .line-container h5 {
+        font-size: 0.6rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        padding: 0;
+    }
+
+    .gradient-line {
+        height: 4px;
+        width: 45%;
+    }
+}

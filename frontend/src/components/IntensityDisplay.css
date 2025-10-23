@@ -1,0 +1,72 @@
+.intensity-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 0;
+}
+
+.dots {
+    display: flex;
+    gap: 4px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #A3A3A3;
+}
+
+.intensity-label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+/* ---- CATEGORY COLORS ---- */
+
+/* Dark Roast (burnt orange tones) */
+.intensity-container.dark .dot.filled {
+    background-color: #E86101;
+}
+
+.intensity-container.dark .intensity-label {
+    color: #8C390F;
+    font-weight: 800;
+}
+
+/* Cold Brew (icy blue tones) */
+.intensity-container.cold .dot.filled {
+    background-color: #0F4CFF;
+}
+
+.intensity-container.cold .intensity-label {
+    color: #0C34F3;
+    font-weight: 800;
+}
+
+/* Energy Weapons (neon green tones) */
+.intensity-container.energy .dot.filled {
+    background-color: #FF9900;
+}
+
+.intensity-container.energy .intensity-label {
+    color: #A31404;
+    font-weight: 800;
+}
+
+@media (max-width: 700px) {
+    .dots {
+        gap: 2px;
+    }
+
+    .dot {
+        width: 5px;
+        height: 5px;
+    }
+
+    .intensity-label {
+    font-size: 0.5rem;
+    }
+
+}

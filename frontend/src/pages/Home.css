@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Container (2-column layout) === */
+.home-container {
+  display: flex;
+  justify-content: center;   
+  align-items: center;       
+  min-height: 100vh;
+  background-color: #FFF8EA;
+  background-size: cover;
+  color: #373737;
+  overflow: hidden; 
+  padding: 2rem;
+}
+
+/* === Left: Hero Text === */
+.hero-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;   
+  align-items: center;
+  transform: translate(150px, -40px);
+}
+
+/* === Hero Content === */
+.hero-content {
+ max-width: 800px;
+  text-align: center;       
+  display: flex;
+  flex-direction: column;
+  align-items: center;      
+  justify-content: center;
+}
+
+/* === Right: Hero Image === */
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-150px, 200px);
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* === Text Styling === */
+.brand-title {
+  font-size: 9rem;
+  text-shadow: 3px 2px #722600;
+  color: #373737;
+  line-height: 0.9;
+  letter-spacing: -2px;
+  padding-bottom: 2rem;
+}
+
+.brand-subtitle {
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin-top: 1rem;
+  color: #373737;
+  padding-bottom: 0.5rem;
+}
+
+.brand-tag {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #722600;
+  margin-top: 0.4rem;
+  padding-bottom: 3rem;
+}
+
+/* === Buttons === */
+.button-group {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;    
+  gap: 2.5rem;             
+  width: 100%;   
+}
+
+/* === Primary Button (filled) === */
+button.btn-primary {
+  background: linear-gradient(90deg, #373737 0%, #722600 100%);
+  color: white;
+  font-weight: 900;
+  font-size: 1.5rem;
+  padding: 1.2rem 4rem;
+  width: 100%;
+  max-width: 500px;     
+  height: 90px;
+  border: none;
+  border-radius: 0;
+  letter-spacing: 1px;
+  text-align: start;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 10% 100%);
+}
+
+button.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* === Secondary Button (outlined) === */
+button.btn-secondary {
+  background: transparent;
+  color: #373737;
+  font-weight: 900;
+  font-size: 1.5rem;
+  padding: 1.2rem 4rem;
+  width: 100%;
+  max-width: 500px;      
+  height: 90px;
+  border: 3px solid #E86101;
+  border-radius: 0;
+  letter-spacing: 1px;
+  text-align: start;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+}
+
+button.btn-secondary:hover {
+  border: 3px solid #722600;
+}
+
+
+/* === Responsive === */
+@media (max-width: 1400px) {
+  
+  .button-group {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    width: 100%;
+  }
+
+  button.btn-primary,
+  button.btn-secondary {
+    width: 100%;
+    max-width: 450px;
+  }
+
+
+  .home-container {
+    flex-direction: column;       
+    justify-content: center;      
+    align-items: center;          
+    padding: 2rem;
+    text-align: center;                  
+  }
+
+  /* Center and reset offsets */
+  .hero-left,
+  .hero-right {
+    transform: none;              
+    margin: 0;                    
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Text content */
+  .hero-content {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: none;
+    margin: 0 auto;
+  }
+
+  /* Image centered & scaled nicely */
+  .hero-image {
+    width: 100%;
+    max-width: 700px;            
+    min-width: 400px;
+    height: auto;
+    object-fit: contain;
+  }
+
+}
+
+
+@media (max-width: 576px) { 
+
+  .brand-title {
+    font-size: 5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .brand-subtitle {
+    font-size: 1rem;
+  }
+
+  .brand-tag {
+    font-size: 0.8rem;
+    padding-bottom: 5.5rem;
+  }
+
+  .hero-image {
+    max-width: 500px;
+    min-width: 400px;
+  }
+
+  button.btn-primary,
+  button.btn-secondary {
+    width: 95%;
+    max-width: none;
+    height: 60px;
+    padding: 0.8rem 2.5rem;
+    font-size: 1rem;
+  }
+}
