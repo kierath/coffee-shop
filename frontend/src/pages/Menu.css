@@ -28,7 +28,7 @@
     flex-direction: column;
     justify-content: space-between;
     max-width: 550px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .menu-item-header {
@@ -44,58 +44,101 @@
 .menu-header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* buttons on edges */
+    justify-content: space-between;
     width: 100%;
     padding: 1.5rem 2rem;
     background-color: #FFF8EA;
+    position: relative;
 }
 
 .menu-header h1 {
     margin: 0 auto;
-    font-size:  4rem;
+    font-size: 4rem;
     font-weight: 800;
     color: #373737;
     text-align: center;
     letter-spacing: 2px;
 }
 
+.menu-header .back-btn,
+.menu-header .basket-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
 
 .menu-header .back-btn {
-    position: absolute;
-    left: 3rem; 
-    z-index: 2;
+    left: 1rem;
 }
 
 .menu-header .basket-btn {
-    position: absolute;
-    right: 3rem; 
-    z-index: 2;
+    right: 1rem;
 }
 
-/* Buttons styling */
+/* ===========================
+   BUTTONS
+=========================== */
 .back-btn,
 .basket-btn {
-    padding: 0.8rem 1.5rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    border-radius: 0.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.6rem !important;
+    background-color: #FFFFF9 !important;
+    color: #373737;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.back-btn img,
+.basket-btn img {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.basket-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.basket-count {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    background: #FFFFF9;
+    color: #373737;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+}
 
 /* ===========================
-   MENU SECTIONS
+   MENU SECTIONS / COLORS
 =========================== */
 .menu-section-dark-roasts,
 .menu-section-cold-arsenal,
 .menu-section-energy-weapons {
-    background-color: #FFFFF9;
-    padding: 2rem 0;
+    background: #FFFFF9;
+    padding: 1rem 0;
     border-radius: 2rem;
-    margin: 1rem 0 2rem 0;
+    margin: 1rem 0 2rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
@@ -107,43 +150,66 @@
     padding: 0 2rem;
 }
 
-/* ---- CATEGORY TITLES ---- */
-.menu-section-dark-roasts h2 {
-    color: #6F2F01;
+/* ---- CATEGORY COLORS ---- */
+.menu-section-dark-roasts {
+    --main: #6F2F01;
+    --accent: #934008;
 }
 
-.menu-section-cold-arsenal h2 {
-    color: #03009E;
+.menu-section-cold-arsenal {
+    --main: #03009E;
+    --accent: #0A36F5;
 }
 
+.menu-section-energy-weapons {
+    --main: #992400;
+    --accent: #AD1E0E;
+}
+
+.menu-section-dark-roasts h2,
+.menu-section-cold-arsenal h2,
 .menu-section-energy-weapons h2 {
-    color: #992400;
-}
-
-.menu-section-dark-roasts h4 {
-    color: #934008;
-}
-
-.menu-section-cold-arsenal h4 {
-    color: #0A36F5;
-}
-
-.menu-section-energy-weapons h4 {
-    color: #AD1E0E;
+    font-size: 2.7rem;
+    letter-spacing: 0.3rem;
+    font-weight: 800;
+    padding: 0 0.5rem;
 }
 
 .menu-section-dark-roasts .menu-item-header h3,
-.menu-section-dark-roasts .menu-item-header .price {
+.menu-section-cold-arsenal .menu-item-header h3,
+.menu-section-energy-weapons .menu-item-header h3,
+.menu-section-dark-roasts .price,
+.menu-section-cold-arsenal .price,
+.menu-section-energy-weapons .price {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+
+.menu-section-dark-roasts h4,
+.menu-section-cold-arsenal h4,
+.menu-section-energy-weapons h4 {
+    font-size: 1.5rem;
+    letter-spacing: 0.2rem;
+    font-weight: 800;
+    padding: 0.5rem 0.5rem;
+}
+
+.menu-section-dark-roasts h2,
+.menu-section-dark-roasts .menu-item-header h3,
+.menu-section-dark-roasts .price {
     color: #6F2F01;
 }
 
+.menu-section-cold-arsenal h2,
 .menu-section-cold-arsenal .menu-item-header h3,
-.menu-section-cold-arsenal .menu-item-header .price {
+.menu-section-cold-arsenal .price {
     color: #03009E;
 }
 
+.menu-section-energy-weapons h2,
 .menu-section-energy-weapons .menu-item-header h3,
-.menu-section-energy-weapons .menu-item-header .price {
+.menu-section-energy-weapons .price {
     color: #992400;
 }
 
@@ -157,38 +223,6 @@
 
 .menu-section-energy-weapons .desc {
     color: #A31404;
-}
-
-/* ===========================
-   TEXT STYLES
-=========================== */
-.menu-section-dark-roasts h2,
-.menu-section-cold-arsenal h2,
-.menu-section-energy-weapons h2 {
-    font-size: 2.7rem;
-    letter-spacing: 0.3rem;
-    font-weight: 800;
-    padding: 0 0.5rem;
-}
-
-.menu-section-dark-roasts h4,
-.menu-section-cold-arsenal h4,
-.menu-section-energy-weapons h4 {
-    font-size: 1.5rem;
-    letter-spacing: 0.2rem;
-    font-weight: 800;
-    padding: 0.5rem 0.5rem;
-}
-
-.menu-section-dark-roasts .menu-item-header h3,
-.menu-section-cold-arsenal .menu-item-header h3,
-.menu-section-energy-weapons .menu-item-header h3,
-.menu-section-dark-roasts .menu-item-header .price,
-.menu-section-cold-arsenal .menu-item-header .price,
-.menu-section-energy-weapons .menu-item-header .price {
-    font-size: 1.7rem;
-    font-weight: 800;
-    margin: 0;
 }
 
 .menu-section-dark-roasts .desc,
@@ -234,8 +268,6 @@
 .dark-roast-menu-logo-box img,
 .cold-arsenal-menu-logo-box img,
 .energy-weapons-menu-logo-box img {
-    width: auto;
-    height: auto;
     max-width: 70%;
     max-height: 70%;
     object-fit: contain;
@@ -243,24 +275,8 @@
 }
 
 /* ===========================
-   ADD ITEM AND QUANTITY BUTTONS
+   ADD ITEM & QUANTITY BUTTONS
 =========================== */
-.add-btn.dark,
-.add-btn.cold,
-.add-btn.energy {
-    width: 100%;
-    height: 3.5rem;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 1rem;
-    cursor: pointer;
-    font-weight: 800;
-    color: #fff;
-    font-size: 1.2rem;
-    transition: transform 0.2s;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
 .add-btn.dark {
     background: linear-gradient(90deg, #EA6200 0%, #893900 100%);
 }
@@ -273,9 +289,21 @@
     background: linear-gradient(90deg, #FFB200 0%, #FF3C00 100%);
 }
 
-.item-controls.dark,
-.item-controls.cold,
-.item-controls.energy {
+.add-btn {
+    width: 100%;
+    height: 3.5rem;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-weight: 800;
+    color: #fff;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.item-controls {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -283,9 +311,7 @@
     margin-top: 0.5rem;
 }
 
-.item-controls.dark button,
-.item-controls.cold button,
-.item-controls.energy button {
+.item-controls button {
     width: 40px;
     height: 40px;
     border-radius: 0.5rem;
@@ -296,7 +322,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     background: #D9D9D9;
     color: #373737;
 }
@@ -310,74 +336,17 @@
     border-radius: 0.5rem;
     font-weight: 700;
     font-size: 1.5rem;
-    text-align: center;
     color: #373737;
 }
 
 /* ===========================
-   BACK AND BASKET BUTTONS
-=========================== */
-button.back-btn,
-button.basket-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 0.8rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    font-size: 1.6rem;
-    background-color: #FFFFF9;
-    color: #373737;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin: 0;
-}
-
-.back-btn img,
-.basket-btn img {
-    width: 2rem;
-    height: 2rem;
-    flex-shrink: 0;
-    object-fit: contain;
-}
-
-
-.basket-content {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.basket-count {
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    background-color: #FFFFF9;
-    color: #373737;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* ===========================
-   LINE / DIVIDERS
+   LINES / DIVIDERS
 =========================== */
 .line-container-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    margin: 0;
 }
 
 .line-container-menu h5 {
@@ -386,8 +355,7 @@ button.basket-btn {
     color: #393939;
     letter-spacing: 1px;
     margin: 0;
-    padding: 1rem 0 0.5rem 0;
-    line-height: 1;
+    padding: 1rem 0 0.5rem;
 }
 
 .gradient-line {
@@ -413,17 +381,12 @@ button.basket-btn {
         font-size: 4rem;
     }
 
+    .back-btn,
     .basket-btn {
         width: 80px;
+        height: 80px;
         font-size: 0.8rem;
-        height: 80px;
-    }
-
-    .back-btn {
-        width: 80px;
-        height: 80px;
         padding: 0;
-        margin: 0;
     }
 
     .basket-text,
@@ -431,21 +394,11 @@ button.basket-btn {
         display: none;
     }
 
-
-    .back-btn,
-    .basket-btn {
-        padding: 0.6rem 1rem;
-        font-size: 1rem;
-    }
-
-
     .back-btn img,
     .basket-btn img {
         width: 3rem;
         height: 3rem;
-        margin: 0;
     }
-
 
     .basket-count {
         top: -25px;
@@ -456,7 +409,6 @@ button.basket-btn {
     }
 
     .gradient-line {
-        height: 7px;
         width: 45%;
     }
 }
@@ -465,21 +417,14 @@ button.basket-btn {
     .menu-items {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
-        width: 100%;
     }
 
     .menu-container {
         padding: 2rem;
-        width: 100%;
     }
 
     .menu-item {
-        max-width: 100%;
         padding: 1rem;
-    }
-
-    .menu-item-header {
-        margin-bottom: 0.3rem;
     }
 
     .dark-roast-menu-logo-box,
@@ -502,9 +447,6 @@ button.basket-btn {
     .menu-section-energy-weapons h2 {
         font-size: 1.3rem;
         letter-spacing: 0.1rem;
-        padding: 0;
-        margin: 0;
-        white-space: nowrap;
     }
 
     .menu-section-dark-roasts h4,
@@ -512,17 +454,15 @@ button.basket-btn {
     .menu-section-energy-weapons h4 {
         font-size: 0.6rem;
         letter-spacing: 0.1rem;
-        padding: 0;
-        margin: 0;
     }
 
     .menu-section-dark-roasts .menu-item-header h3,
     .menu-section-cold-arsenal .menu-item-header h3,
     .menu-section-energy-weapons .menu-item-header h3,
-    .menu-section-dark-roasts .menu-item-header .price,
-    .menu-section-cold-arsenal .menu-item-header .price,
-    .menu-section-energy-weapons .menu-item-header .price {
-        font-size: 0.8rem;
+    .menu-section-dark-roasts .price,
+    .menu-section-cold-arsenal .price,
+    .menu-section-energy-weapons .price {
+        font-size: 1rem;
         font-weight: 900;
     }
 
@@ -530,26 +470,21 @@ button.basket-btn {
     .menu-section-cold-arsenal .desc,
     .menu-section-energy-weapons .desc {
         font-size: 0.6rem;
-        margin: 0.3rem 0 0.5rem 0;
+        margin: 0.3rem 0 0.5rem;
         font-weight: 750;
     }
 
-    .add-btn.dark,
-    .add-btn.cold,
-    .add-btn.energy {
+    .add-btn {
         font-size: 0.65rem;
         height: 1.5rem;
         padding: 0 1rem;
         border-radius: 0.5rem;
     }
 
-    .item-controls.dark button,
-    .item-controls.cold button,
-    .item-controls.energy button {
+    .item-controls button {
         width: 20px;
         height: 20px;
         font-size: 0.8rem;
-        font-weight: 600;
         border-radius: 0.3rem;
     }
 
@@ -560,7 +495,6 @@ button.basket-btn {
         font-weight: 600;
     }
 
-
     .basket-count {
         top: -10px;
         right: -10px;
@@ -570,7 +504,7 @@ button.basket-btn {
     }
 
     .menu-header {
-        padding: 1rem 1rem;
+        padding: 1rem;
     }
 
     .menu-header h1 {
@@ -582,7 +516,6 @@ button.basket-btn {
     .basket-btn {
         width: 50px;
         height: 50px;
-        padding: 0;
     }
 
     .back-btn img,
@@ -591,13 +524,10 @@ button.basket-btn {
         height: 24px;
     }
 
-
     .line-container-menu h5 {
         font-size: 0.8rem;
-        font-weight: 400;
         letter-spacing: 0.5px;
         padding: 0;
-        margin: 0;
     }
 
     .gradient-line {

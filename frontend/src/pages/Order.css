@@ -30,7 +30,7 @@ html {
 }
 
 .order-header h1 {
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: 800;
     color: #373737;
     letter-spacing: 2px;
@@ -39,7 +39,16 @@ html {
     pointer-events: none;
 }
 
+.back-btn {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
+/* ===========================
+   LINE INDICATOR
+=========================== */
 .line-container-order {
     display: flex;
     flex-direction: column;
@@ -54,34 +63,34 @@ html {
     color: #393939;
     letter-spacing: 1px;
     margin: 0;
-    padding: 1rem 0 0.5rem 0;    
+    padding: 1rem 0 0.5rem;
 }
 
 .gradient-line {
     height: 7px;
     width: 21%;
-    background: linear-gradient(to right,
-            rgba(105, 105, 105, 0.1),
-            rgba(57, 57, 57, 0.5),
-            rgba(105, 105, 105, 0.1));
+    background: linear-gradient(
+        to right,
+        rgba(105, 105, 105, 0.1),
+        rgba(57, 57, 57, 0.5),
+        rgba(105, 105, 105, 0.1)
+    );
     border-radius: 2px;
 }
 
-.back-btn {
-    position: absolute;
-    left: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: #2B2B2B;
-    transition: all 0.2s ease;
+/* ===========================
+   EMPTY BASKET
+=========================== */
+.empty-basket-message {
+    text-align: center;
+    padding: 5rem 0;
+    font-size: 1.5rem;
+    color: #373737;
+    background-color: #FFFFF9;
+    margin: 1rem 0 3rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
 }
-
 
 /* ===========================
    ORDER SECTIONS
@@ -89,11 +98,10 @@ html {
 .order-section-dark-roasts,
 .order-section-cold-arsenal,
 .order-section-energy-weapons {
-    background-color: #FFFFFF;
+    background-color: #FFFFF9;
     border-radius: 1.5rem;
     padding: 2rem;
-    margin-top: 1rem;
-    margin-bottom: 3rem;
+    margin: 1rem 0 3rem;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
 }
 
@@ -126,12 +134,12 @@ html {
 
 .order-section-header h4 {
     font-size: 1.3rem;
+    font-weight: 750;
     color: #2B2B2B;
     letter-spacing: 1px;
-    font-weight: 750;
 }
 
-/* Color accents for headings */
+/* Section heading colors */
 .order-section-dark-roasts h2,
 .order-section-dark-roasts h4 {
     color: #6F2F01;
@@ -200,7 +208,6 @@ html {
     background: #E0E0E0;
     color: #2B2B2B;
     cursor: pointer;
-    transition: background 0.2s ease;
 }
 
 .item-controls button:hover {
@@ -214,6 +221,20 @@ html {
     text-align: center;
 }
 
+button.remove-item-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin: 1rem 0 1rem 10rem;
+}
+
+.rubbish-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
 /* ===========================
    ORDER TOTAL / CHECKOUT
 =========================== */
@@ -221,10 +242,11 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #FFFFFF;
+    background: #FFFFF9;
     padding: 2rem;
     border-radius: 1.5rem;
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 .order-total h2 {
@@ -251,21 +273,6 @@ html {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-button.remove-item-btn {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    margin: 1rem 0 1rem 10rem;
-}
-
-.rubbish-icon {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-    background: transparent;
-}
-
 /* ===========================
    STRIPE CARD ELEMENT
 =========================== */
@@ -274,10 +281,10 @@ button.remove-item-btn {
     flex-direction: column;
     gap: 1rem;
     width: 100%;
-    order: 2;
-    margin: 0 auto; 
-    align-items: stretch; 
+    margin: 0 auto;
+    align-items: stretch;
     padding: 2rem 1rem;
+    font-size: 1.2rem;
 }
 
 .stripe-card-element {
@@ -296,11 +303,14 @@ button.remove-item-btn {
     box-shadow: 0 0 0 2px rgba(55, 55, 55, 0.15);
 }
 
-
+/* ===========================
+   MEDIA QUERIES (MOBILE)
+=========================== */
 @media (max-width: 700px) {
     .order-container {
         width: 100%;
         max-width: 500px;
+        padding: 1rem 1.5rem;
     }
 
     .order-header h1 {
@@ -322,13 +332,10 @@ button.remove-item-btn {
 
     .order-section-header h2 {
         font-size: 1.2rem;
-        font-weight: 800;
-        text-transform: uppercase;
     }
 
     .order-section-header h4 {
         font-size: 0.7rem;
-        font-weight: 800;
     }
 
     .price {
@@ -336,15 +343,11 @@ button.remove-item-btn {
     }
 
     .item-controls span {
-        font-weight: 700;
         font-size: 0.8rem;
     }
 
-
     .line-container-order h5 {
         font-size: 0.75rem;
-        font-weight: 400;
-        letter-spacing: 0.5px;
         padding: 0;
     }
 
@@ -355,13 +358,14 @@ button.remove-item-btn {
 
     .order-total h2 {
         font-size: 1rem;
-        font-weight: 800;
     }
 
     .checkout-btn {
         font-size: 1rem;
+        padding: 0.8rem 0;
+        width: 100%;
+        margin-top: 0.5rem;
     }
-
 
     button.remove-item-btn {
         margin: 0.5rem 0 0.5rem 1rem;
@@ -376,26 +380,26 @@ button.remove-item-btn {
         margin-top: 1rem;
     }
 
-    .order-total {
-        width: 100%;
-        order: 1;
-    }
-
     .stripe-checkout {
         width: 100%;
-        order: 2;
-        margin-top: 0;
         padding: 1rem;
+        margin-top: 0;
     }
 
     .stripe-card-element {
         font-size: 0.9rem;
     }
-
-    .checkout-btn {
-        width: 100%;
-        font-size: 1rem;
-        padding: 0.8rem 0;
-        margin-top: 0.5rem;
+    .back-btn {
+        left: 0.5rem;      
+        top: 1.3rem; 
+        transform: none;   
+        width: 35px;    
+        height: 35px;
     }
+
+    .back-btn img.arrow-icon {
+        width: 20px;        
+        height: 20px;
+    }
+
 }

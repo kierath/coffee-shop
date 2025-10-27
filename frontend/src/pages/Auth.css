@@ -6,16 +6,17 @@
   min-height: 100vh;
   background-color: #FFF8EA;
   color: #373737;
-  padding: 2rem;
+  padding: 1.5rem; 
+  box-sizing: border-box;
 }
 
 /* === Card === */
 .auth-card {
   background: #ffffff;
-  padding: 3rem 4rem;
+  padding: 2.5rem 3rem; 
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  max-width: 450px;
+  max-width: 420px;
   width: 100%;
   text-align: center;
   border-top: 6px solid #722600;
@@ -29,18 +30,18 @@
 
 /* === Titles === */
 .auth-title {
-  font-size: 3rem;
+  font-size: 2.5rem; 
   font-weight: 900;
   color: #373737;
+  margin-bottom: 0.5rem;
 }
 
 .auth-subtitle {
-  margin-top: 0.5rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #722600;
   font-weight: 600;
-  letter-spacing: 1px;
-  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem; 
 }
 
 /* === Error Message === */
@@ -48,22 +49,23 @@
   background-color: #ffebeb;
   border: 1px solid #ff8c8c;
   color: #c10000;
-  padding: 0.75rem;
+  padding: 0.65rem;
   border-radius: 6px;
   margin-bottom: 1rem;
   font-weight: 600;
+  font-size: 0.95rem;
 }
 
 /* === Form === */
 .auth-card form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.2rem; 
 }
 
 /* === Inputs === */
 .auth-card input {
-  padding: 1rem;
+  padding: 0.9rem 1rem; 
   border: 2px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
@@ -76,23 +78,21 @@
   box-shadow: 0 0 0 3px rgba(114, 38, 0, 0.2);
 }
 
-/* === Button === */
+/* === Buttons === */
 .auth-btn {
   background: linear-gradient(90deg, #373737 0%, #722600 100%);
   color: white;
   font-weight: 900;
   font-size: 1.1rem;
-  padding: 1rem 2.5rem;
+  padding: 1.3rem 2.2rem;
   border: none;
   cursor: pointer;
-  border-radius: 20px;          /* ✅ clean rounded rectangle */
+  border-radius: 20px;
   transition: all 0.25s ease;
   width: 100%;
-  max-width: 320px;
-  margin: 2rem auto 0 auto;
-  text-align: center;
+  max-width: 300px;
+  margin: 1rem auto 0 auto;
   letter-spacing: 1px;
-  display: block;
 }
 
 .auth-btn:hover {
@@ -103,21 +103,24 @@
 
 .auth-btn-google {
   border: 3px solid #373737;
-  margin: 20px 0px;
+  margin: 1rem auto 0 auto;
   border-radius: 20px;
   text-align: center;
   background-color: white;
+  font-size: 1.05rem;
+  padding: 0.9rem 2rem;
+  width: 100%;
+  max-width: 300px;
 }
 
 .auth-btn-google:hover {
-  border-color: #722600;  
+  border-color: #722600;
 }
 
 /* === Bottom Link === */
 .auth-link {
-  margin-top: 2rem;
-  font-size: 1rem;
-  color: #373737;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
 }
 
 .auth-link a {
@@ -130,19 +133,49 @@
   text-decoration: underline;
 }
 
-/* === Responsive === */
+/* === Responsive (Mobile) === */
 @media (max-width: 600px) {
   .auth-card {
-    padding: 2rem;
+    padding: 1.8rem 2rem; 
+    max-width: 95%;
   }
 
   .auth-title {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
+  }
+
+  .auth-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .auth-card form {
+    gap: 1rem;
+  }
+
+  .auth-card input {
+    padding: 0.8rem;
+    font-size: 0.95rem;
   }
 
   .auth-btn {
-    font-size: 1rem;
-    padding: 0.9rem 2rem;
-    max-width: 280px;
+    font-size: 0.95rem;
+    padding: 0.85rem 1.8rem;
+    max-width: 100%;
+  }
+
+  .auth-btn-google {
+    font-size: 0.95rem;
+    padding: 0.8rem 1.8rem;
+    max-width: 100%;
+  }
+
+  .auth-error {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+
+  .auth-link {
+    font-size: 0.85rem;
   }
 }

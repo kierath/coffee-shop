@@ -26,7 +26,7 @@
   display: flex;
   justify-content: center;   
   align-items: center;
-  transform: translate(150px, -40px);
+  transform: translate(175px, -50px);
 }
 
 /* === Hero Content === */
@@ -45,7 +45,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translate(-150px, 200px);
+  transform: translate(-175px, 200px);
 }
 
 .hero-image {
@@ -91,7 +91,6 @@
   width: 100%;   
 }
 
-/* === Primary Button (filled) === */
 button.btn-primary {
   background: linear-gradient(90deg, #373737 0%, #722600 100%);
   color: white;
@@ -115,7 +114,6 @@ button.btn-primary:hover {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
 }
 
-/* === Secondary Button (outlined) === */
 button.btn-secondary {
   background: transparent;
   color: #373737;
@@ -138,7 +136,6 @@ button.btn-secondary:hover {
   border: 3px solid #722600;
 }
 
-
 /* === Responsive === */
 @media (max-width: 1400px) {
   
@@ -154,7 +151,6 @@ button.btn-secondary:hover {
     width: 100%;
     max-width: 450px;
   }
-
 
   .home-container {
     flex-direction: column;       

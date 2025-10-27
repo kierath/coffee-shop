@@ -125,7 +125,6 @@ const Order = () => {
         body: JSON.stringify({ productId: id, quantity: 1 }),
       });
     }
-
     const updated = { ...basket, [id]: (basket[id] || 0) + 1 };
     saveBasket(updated);
   };
@@ -164,22 +163,11 @@ const Order = () => {
     return acc;
   }, {});
 
-  if (!cartItems.length) {
-    return (
-      <div className="order-container">
-        <button className="back-btn" onClick={() => navigate('/menu')}>
-          <img src={arrowIcon} alt="Back Arrow" className="arrow-icon" />
-          <span className="back-text">Back</span>
-        </button>
-        <h2>Your basket is empty</h2>
-      </div>
-    );
-  }
-
   const user = JSON.parse(localStorage.getItem('user'));
 
   return (
     <div className="order-container">
+      {/* Header always visible */}
       <div className="order-header">
         <button className="back-btn" onClick={() => navigate('/menu')}>
           <img src={arrowIcon} alt="Back Arrow" className="arrow-icon" />
@@ -195,76 +183,94 @@ const Order = () => {
         <h5>{totalItems} ITEMS SELECTED</h5>
       </div>
 
-      {Object.entries(groupedItems).map(([category, items]) => (
-        <section
-          key={category}
-          className={
-            category === 'dark'
-              ? 'order-section-dark-roasts'
-              : category === 'cold'
-                ? 'order-section-cold-arsenal'
-                : 'order-section-energy-weapons'
-          }
-        >
-          <div className="order-section-header">
-            <div>
-              <h2>{categoryDisplayNames[category].toUpperCase()}</h2>
-              <h4>{items.length} BREWS IN YOUR ORDER</h4>
-            </div>
-          </div>
-
-          <div className="order-items">
-            {items.map(item => (
-              <div className="order-item" key={item.id}>
-                <div className="order-item-header">
-                  <h3>{item.name.toUpperCase()}</h3>
-                  <p className="price">£{(item.price * item.quantity).toFixed(2)}</p>
-                </div>
-                <div className={`item-controls ${category}`}>
-                  <button onClick={() => removeItem(item.id)}>-</button>
-                  <span>{item.quantity}</span>
-                  <button onClick={() => addItem(item.id)}>+</button>
-                  <button
-                    className="remove-item-btn"
-                    aria-label={`Remove ${item.name}`}
-                    onClick={() => {
-                      const updatedBasket = { ...basket };
-                      delete updatedBasket[item.id];
-                      saveBasket(updatedBasket);
-                    }}
-                  >
-                    <img src={rubbishIcon} alt="" className="rubbish-icon" />
-                  </button>
-                </div>
+      {/* Basket items or empty message */}
+      {cartItems.length === 0 ? (
+        <div className="empty-basket-message">
+          <p>Your basket is empty.</p>
+        </div>
+      ) : (
+        Object.entries(groupedItems).map(([category, items]) => (
+          <section
+            key={category}
+            className={
+              category === 'dark'
+                ? 'order-section-dark-roasts'
+                : category === 'cold'
+                  ? 'order-section-cold-arsenal'
+                  : 'order-section-energy-weapons'
+            }
+          >
+            <div className="order-section-header">
+              <div>
+                <h2>{categoryDisplayNames[category].toUpperCase()}</h2>
+                <h4>{items.length} BREWS IN YOUR ORDER</h4>
               </div>
-            ))}
-          </div>
-        </section>
-      ))}
-      <div className="mobile-checkout-container">
-        <div className="order-total">
-          <h2>TOTAL: £{total.toFixed(2)}</h2>
-        </div>
+            </div>
 
-        <div className="stripe-checkout">
-          {user ? (
-            <Elements stripe={stripePromise}>
-              <StripeCheckoutForm
-                total={total}
-                userId={user.id}
-                clearBasket={() => setBasket({})}
-                navigate={navigate}
-              />
-            </Elements>
-          ) : (
-            <button className="checkout-btn" onClick={() => navigate('/login')}>
-              Log in to checkout
-            </button>
-          )}
+            <div className="order-items">
+              {items.map(item => (
+                <div className="order-item" key={item.id}>
+                  <div className="order-item-header">
+                    <h3>{item.name.toUpperCase()}</h3>
+                    <p className="price">£{(item.price * item.quantity).toFixed(2)}</p>
+                  </div>
+                  <div className={`item-controls ${category}`}>
+                    <button onClick={() => removeItem(item.id)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => addItem(item.id)}>+</button>
+                    <button
+                      className="remove-item-btn"
+                      aria-label={`Remove ${item.name}`}
+                      onClick={async () => {
+                        if (user) {
+                          await fetch(`http://localhost:5000/cart/${user.id}/${item.id}`, { method: 'DELETE' });
+                        }
+                        const updatedBasket = { ...basket };
+                        delete updatedBasket[item.id];
+                        saveBasket(updatedBasket);
+                        sessionStorage.setItem('basket', JSON.stringify(updatedBasket));
+                      }}
+                    >
+                      <img src={rubbishIcon} alt="Rubbish Icon" className="rubbish-icon" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        ))
+      )}
+
+      {/* Checkout only visible if there are items */}
+      {cartItems.length > 0 && (
+        <div className="mobile-checkout-container">
+          <div className="order-total">
+            <h2>TOTAL: £{total.toFixed(2)}</h2>
+          </div>
+
+          <div className="stripe-checkout">
+            {user ? (
+              <Elements stripe={stripePromise}>
+                <StripeCheckoutForm
+                  total={total}
+                  userId={user.id}
+                  clearBasket={() => {
+                    setBasket({});
+                    sessionStorage.removeItem('basket');
+                  }}
+                  navigate={navigate}
+                />
+              </Elements>
+            ) : (
+              <button className="checkout-btn" onClick={() => navigate('/login')}>
+                Log in to checkout
+              </button>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
-}
+};
 
-      export default Order;
+export default Order;
