@@ -24,22 +24,25 @@
 .navbar-container a {
   color: white;
   text-decoration: none;
-  
+
 }
 
-.nav-left{
-    font-size: 2rem;
-    font-weight: 800;
+.nav-left {
+  font-size: 2rem;
+  font-weight: 800;
 }
 
 .navbar-container button {
   background-color: transparent;
   color: white;
-  border: 3px solid #E86101;;
-  padding: 0rem;
+  border: 3px solid #E86101;
+  ;
+  padding: 1rem;
   cursor: pointer;
   border-radius: 4px;
   text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .navbar-container button:hover,
@@ -48,12 +51,30 @@
 }
 
 @media (max-width: 700px) {
-  .nav-left{
+  .nav-left {
     font-size: 1.5rem;
+  }
+
+  .nav-right {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
 }
 
-.nav-right {
-  font-size: 1rem;
-  font-weight: 600;
-}
+@media (max-width: 500px) {
+  .nav-left {
+    font-size: 1rem;
+  }
+
+  .nav-right {
+    font-size: 0.7rem;
+    font-weight: 600;
+    max-width: 250px;
+    flex-shrink: 0; 
+  }
+
+  .navbar-container button {
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
 }

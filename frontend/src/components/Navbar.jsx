@@ -14,11 +14,11 @@ function Navbar() {
   return (
     <nav className="navbar-container">
       <div className="nav-left">
-        <Link to="/">Grind</Link>
+        <Link to="/">GRIND</Link>
       </div>
 
       <div className="nav-right">
-        <Link to="/">Home</Link>
+        <Link to="/">HOME</Link>
         {user ? (
           <>
             <Link to="/profile">({user.name})</Link>

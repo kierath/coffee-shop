@@ -7,6 +7,9 @@ import Profile from './pages/Profile';
 import { jwtDecode } from 'jwt-decode';
 import Register from './pages/Register';
 import Menu from './pages/Menu';
+import Order from './pages/Order';
+import OrderHistory from './pages/OrderHistory';
+
 
 
 function App() {
@@ -46,6 +49,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/order" element={<Order />} />
+        <Route path="/order-history" element={<OrderHistory />} />
       </Routes>
     </Router>
   );

@@ -1,0 +1,327 @@
+/* ===========================
+   GENERAL CONTAINER / LAYOUT
+=========================== */
+html {
+    background-color: #FFF8EA;
+}
+
+.order-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.7rem 0;
+    font-family: 'Inter', sans-serif;
+    color: #2B2B2B;
+    background-color: #FFF8EA;
+    box-sizing: border-box;
+}
+
+/* ===========================
+   ORDER HEADER
+=========================== */
+.order-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 0.7rem;
+}
+
+.order-header h1 {
+    font-size: 3.8rem;
+    font-weight: 800;
+    color: #373737;
+    letter-spacing: 4px;
+    text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.line-container-order {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.line-container-order h5 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #393939;
+    letter-spacing: 1px;
+    margin: 0;
+    padding: 0.8rem 0 1.5rem 0;
+}
+
+.gradient-line {
+    height: 8px;
+    width: 21%;
+    background: linear-gradient(to right,
+            rgba(105, 105, 105, 0.1),
+            rgba(57, 57, 57, 0.5),
+            rgba(105, 105, 105, 0.1));
+    border-radius: 2px;
+}
+
+.back-btn {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #2B2B2B;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    transform: translateX(-4px);
+    opacity: 0.8;
+}
+
+/* ===========================
+   ORDER SECTIONS
+=========================== */
+.order-section-dark-roasts,
+.order-section-cold-arsenal,
+.order-section-energy-weapons {
+    background-color: #FFFFFF;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.order-section-dark-roasts {
+    border-left: 8px solid rgb(234, 98, 0);
+}
+
+.order-section-cold-arsenal {
+    border-left: 8px solid rgb(0, 64, 255);
+}
+
+.order-section-energy-weapons {
+    border-left: 8px solid rgb(255, 178, 0);
+}
+
+.order-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.order-section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.order-section-header h4 {
+    font-size: 1.3rem;
+    color: #2B2B2B;
+    letter-spacing: 1px;
+    font-weight: 750;
+}
+
+/* Color accents for headings */
+.order-section-dark-roasts h2,
+.order-section-dark-roasts h4 {
+    color: #6F2F01;
+}
+
+.order-section-cold-arsenal h2,
+.order-section-cold-arsenal h4 {
+    color: #03009E;
+}
+
+.order-section-energy-weapons h2,
+.order-section-energy-weapons h4 {
+    color: #F97316;
+}
+
+/* ===========================
+   ORDER ITEMS
+=========================== */
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    border-radius: 1rem;
+    background-color: #FFFDF7;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.order-item-header h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+    color: #333;
+    letter-spacing: 1px;
+}
+
+.price {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #2B2B2B;
+}
+
+/* ===========================
+   ITEM QUANTITY CONTROLS
+=========================== */
+.item-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.item-controls button {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    background: #E0E0E0;
+    color: #2B2B2B;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.item-controls button:hover {
+    background: #CFCFCF;
+}
+
+.item-controls span {
+    font-weight: 700;
+    font-size: 1.2rem;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* ===========================
+   ORDER TOTAL / CHECKOUT
+=========================== */
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #FFFFFF;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.order-total h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2B2B2B;
+}
+
+.checkout-btn {
+    padding: 1rem 2.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 1rem;
+    background: #373737;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+button.remove-item-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin: 1rem 0 1rem 10rem;
+}
+
+.rubbish-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    background: transparent;
+}
+
+@media (max-width: 700px) {
+    .order-container {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .order-header h1 {
+        font-size: 1.6rem;
+        letter-spacing: 2px;
+    }
+
+    .order-item-header h3 {
+        font-size: 1rem;
+        font-weight: 800;
+    }
+
+    .order-section-dark-roasts,
+    .order-section-cold-arsenal,
+    .order-section-energy-weapons {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    .order-section-header h2 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .order-section-header h4 {
+        font-size: 1rem;
+        font-weight: 800;
+    }
+
+
+    .line-container-order h5 {
+        font-size: 0.8rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        padding: 0;
+    }
+
+    .gradient-line {
+        height: 4px;
+        width: 45%;
+    }
+
+    .order-total h2 {
+        font-size: 1.2rem;
+        font-weight: 800;
+    }
+
+    .checkout-btn {
+        font-size: 1rem;
+    }
+
+
+    button.remove-item-btn {
+        margin: 0.5rem 0 0.5rem 1rem;
+    }
+}

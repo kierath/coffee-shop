@@ -1,0 +1,108 @@
+/* ===========================
+   ORDER CARDS
+=========================== */
+.order-history-card {
+    background-color: #fff;
+    padding: 1.5rem 1.2rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+    width: 100%;
+    box-sizing: border-box;  
+}
+
+.order-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem; /* optional spacing */
+}
+
+/* ===========================
+   ORDER ITEMS LIST
+=========================== */
+.order-items-list {
+    margin-top: 1rem;
+    padding-left: 0;
+    list-style: none;
+}
+
+.order-items-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #373737;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.order-items-list li:last-child {
+    border-bottom: none;
+}
+
+/* ===========================
+   TOTAL PRICE
+=========================== */
+.order-footer {
+    margin-top: 1rem;
+    text-align: right;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #373737;
+}
+
+/* ===========================
+   MEDIA QUERIES
+=========================== */
+@media (max-width: 900px) {
+    .order-history-container {
+        padding: 1.5rem 2rem;
+    }
+
+    .order-history-card {
+        padding: 1rem 1rem;
+    }
+
+    .order-items-list li {
+        font-size: 1rem;
+    }
+
+    .order-footer {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .order-history-container {
+        padding: 1rem;
+    }
+
+    .order-history-card {
+       width: 95%;             
+        max-width: none;        
+        padding: 1rem;
+        margin: 1rem auto; 
+    }
+
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+
+    .order-items-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+        font-size: 0.7rem;
+    }
+
+    .order-header h3 {
+        font-size: 1rem;
+    }
+
+    .order-footer {
+        text-align: left;
+        font-size: 1rem;
+    }
+}

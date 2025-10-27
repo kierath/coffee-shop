@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import OrderHistory from './OrderHistory';
+import './Profile.css';
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -17,9 +19,10 @@ function Profile() {
   if (!user) return null;
 
   return (
-    <div>
+    <div className='profile-container'>
       <h2>Welcome, {user.name}!</h2>
       <p>Email: {user.email}</p>
+      <OrderHistory userId={user.id} />
     </div>
   );
 }

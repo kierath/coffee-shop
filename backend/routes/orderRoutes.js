@@ -81,6 +81,7 @@ router.get('/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
 
+    // Get all orders for the user
     const ordersResult = await pool.query(
       `SELECT id AS order_id, user_id, total, created_at
        FROM orders
@@ -89,7 +90,26 @@ router.get('/:userId', async (req, res) => {
       [userId]
     );
 
-    res.json(ordersResult.rows);
+    const orders = ordersResult.rows;
+
+    // For each order, fetch its items
+    const ordersWithItems = [];
+    for (const order of orders) {
+      const itemsResult = await pool.query(
+        `SELECT order_items.product_id, products.name, order_items.quantity, order_items.price
+         FROM order_items
+         JOIN products ON order_items.product_id = products.id
+         WHERE order_items.order_id = $1`,
+        [order.order_id]
+      );
+
+      ordersWithItems.push({
+        ...order,
+        items: itemsResult.rows
+      });
+    }
+
+    res.json(ordersWithItems);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

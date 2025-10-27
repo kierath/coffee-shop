@@ -42,20 +42,34 @@
    MENU HEADER
 =========================== */
 .menu-header {
+    position: relative;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 1rem;
+
 }
 
 .menu-header h1 {
-    flex: 1;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
     text-align: center;
-    font-size: 4.3rem;
+    width: max-content;
+    font-size: 3.8rem;
     font-weight: 800;
     color: #373737;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     letter-spacing: 5px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.menu-header .back-btn,
+.menu-header .basket-btn {
+    position: relative;
+    z-index: 2;
 }
 
 .back-btn,
@@ -65,6 +79,9 @@
     border: none;
     cursor: pointer;
     border-radius: 0.2rem;
+    position: relative;
+    z-index: 2;
+
 }
 
 /* ===========================
@@ -146,7 +163,7 @@
 .menu-section-dark-roasts h2,
 .menu-section-cold-arsenal h2,
 .menu-section-energy-weapons h2 {
-    font-size: 3rem;
+    font-size: 2.7rem;
     letter-spacing: 0.3rem;
     font-weight: 800;
     padding: 0 0.5rem;
@@ -298,42 +315,37 @@
 /* ===========================
    BACK AND BASKET BUTTONS
 =========================== */
-.back-btn {
-    background: #FFFFF9;
-    border-radius: 0.5rem;
-    padding: 1rem 1.5rem;
-    font-weight: 600;
-    width: 300px;
-    font-size: 1.6rem;
-    color: #373737;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+button.back-btn,
+button.basket-btn {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 5px;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1.6rem;
+    background-color: #FFFFF9;
+    color: #373737;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin: 0;
+}
+
+.back-btn img,
+.basket-btn img {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    object-fit: contain;
 }
 
 .back-btn:hover,
 .basket-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
-}
-
-.basket-btn {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    background: #FFFFF9;
-    border-radius: 0.5rem;
-    width: 300px;
-    font-size: 1.6rem;
-    color: #373737;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    height: 75px;
 }
 
 .basket-content {
@@ -343,20 +355,10 @@
     gap: 12px;
 }
 
-.basket-icon {
-    width: 50px;
-    height: 50px;
-}
-
-.arrow-icon {
-    width: 50px;
-    height: 50px;
-}
-
 .basket-count {
     position: absolute;
-    top: -30px;
-    right: -95px;
+    top: -40px;
+    right: -40px;
     background-color: #FFFFF9;
     color: #373737;
     width: 40px;
@@ -373,24 +375,27 @@
 /* ===========================
    LINE / DIVIDERS
 =========================== */
-.line-container {
+.line-container-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    margin: 0;
 }
 
-.line-container h5 {
+.line-container-menu h5 {
     font-size: 1.2rem;
     font-weight: 400;
     color: #393939;
     letter-spacing: 1px;
-    padding: 1rem 0 0.5rem 0;
+    margin: 0;     
+    padding: 1rem 0 0.5rem 0;    
+    line-height: 1; 
 }
 
 .gradient-line {
-    height: 9px;
-    width: 20%;
+    height: 8px;
+    width: 21%;
     background: linear-gradient(to right,
             rgba(105, 105, 105, 0.1),
             rgba(57, 57, 57, 0.5),
@@ -421,7 +426,7 @@
         width: 80px;
         height: 80px;
         padding: 0;
-        justify-content: center;
+        margin: 0;
     }
 
     .basket-text,
@@ -430,13 +435,27 @@
     }
 
 
+    .back-btn,
+    .basket-btn {
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
+    }
+
+
+    .back-btn img,
+    .basket-btn img {
+        width: 3rem;
+        height: 3rem;
+        margin: 0;
+    }
+
+
     .basket-count {
-        top: -30px;
-        right: -30px;
+        top: -25px;
+        right: -25px;
         width: 35px;
         height: 35px;
         font-size: 1.2rem;
-        font-weight: 800;
     }
 
     .gradient-line {
@@ -544,28 +563,24 @@
         font-weight: 600;
     }
 
-    .basket-text,
-    .back-text {
-        display: none;
-    }
-
-    .basket-icon,
-    .arrow-icon {
-        width: 40px;
-        height: 40px;
-    }
-
+    .back-btn,
     .basket-btn {
-        width: 50px;
-        font-size: 0.8rem;
-        height: 50px;
-    }
-
-    .back-btn {
         width: 50px;
         height: 50px;
         padding: 0;
+        margin: 0 !important;
+        display: flex;
+        align-items: center;
         justify-content: center;
+        font-size: 0;
+    }
+
+    .back-btn img,
+    .basket-btn img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+        display: block;
     }
 
     .basket-count {
@@ -574,11 +589,11 @@
         width: 20px;
         height: 20px;
         font-size: 0.8rem;
-        font-weight: 900;
     }
 
     .menu-header {
         margin: 0;
+        padding: 0;
     }
 
     .menu-header h1 {
@@ -587,8 +602,8 @@
     }
 
 
-    .line-container h5 {
-        font-size: 0.6rem;
+    .line-container-menu h5 {
+        font-size: 0.8rem;
         font-weight: 400;
         letter-spacing: 0.5px;
         padding: 0;
