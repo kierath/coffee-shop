@@ -42,36 +42,37 @@
    MENU HEADER
 =========================== */
 .menu-header {
-    position: relative;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-
+    justify-content: space-between; /* buttons on edges */
+    width: 100%;
+    padding: 1.5rem 2rem;
+    background-color: #FFF8EA;
 }
 
 .menu-header h1 {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    text-align: center;
-    width: max-content;
-    font-size: 3.8rem;
+    margin: 0 auto;
+    font-size:  4rem;
     font-weight: 800;
     color: #373737;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    letter-spacing: 5px;
-    pointer-events: none;
-    z-index: 1;
+    text-align: center;
+    letter-spacing: 2px;
 }
 
-.menu-header .back-btn,
-.menu-header .basket-btn {
-    position: relative;
+
+.menu-header .back-btn {
+    position: absolute;
+    left: 3rem; 
     z-index: 2;
 }
 
+.menu-header .basket-btn {
+    position: absolute;
+    right: 3rem; 
+    z-index: 2;
+}
+
+/* Buttons styling */
 .back-btn,
 .basket-btn {
     padding: 0.8rem 1.5rem;
@@ -79,10 +80,11 @@
     border: none;
     cursor: pointer;
     border-radius: 0.2rem;
-    position: relative;
-    z-index: 2;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 
 /* ===========================
    MENU SECTIONS
@@ -342,11 +344,6 @@ button.basket-btn {
     object-fit: contain;
 }
 
-.back-btn:hover,
-.basket-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
-}
 
 .basket-content {
     position: relative;
@@ -388,13 +385,13 @@ button.basket-btn {
     font-weight: 400;
     color: #393939;
     letter-spacing: 1px;
-    margin: 0;     
-    padding: 1rem 0 0.5rem 0;    
-    line-height: 1; 
+    margin: 0;
+    padding: 1rem 0 0.5rem 0;
+    line-height: 1;
 }
 
 .gradient-line {
-    height: 8px;
+    height: 7px;
     width: 21%;
     background: linear-gradient(to right,
             rgba(105, 105, 105, 0.1),
@@ -464,7 +461,7 @@ button.basket-btn {
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
     .menu-items {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
@@ -563,25 +560,6 @@ button.basket-btn {
         font-weight: 600;
     }
 
-    .back-btn,
-    .basket-btn {
-        width: 50px;
-        height: 50px;
-        padding: 0;
-        margin: 0 !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0;
-    }
-
-    .back-btn img,
-    .basket-btn img {
-        width: 24px;
-        height: 24px;
-        object-fit: contain;
-        display: block;
-    }
 
     .basket-count {
         top: -10px;
@@ -592,13 +570,25 @@ button.basket-btn {
     }
 
     .menu-header {
-        margin: 0;
-        padding: 0;
+        padding: 1rem 1rem;
     }
 
     .menu-header h1 {
         font-size: 1.6rem;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
+    }
+
+    .back-btn,
+    .basket-btn {
+        width: 50px;
+        height: 50px;
+        padding: 0;
+    }
+
+    .back-btn img,
+    .basket-btn img {
+        width: 24px;
+        height: 24px;
     }
 
 
@@ -607,6 +597,7 @@ button.basket-btn {
         font-weight: 400;
         letter-spacing: 0.5px;
         padding: 0;
+        margin: 0;
     }
 
     .gradient-line {

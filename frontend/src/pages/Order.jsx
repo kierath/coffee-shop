@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import './Order.css';
 import arrowIcon from '../assets/arrow-icon.png';
 import rubbishIcon from '../assets/rubbish-icon.png';
@@ -11,12 +13,73 @@ const categoryDisplayNames = {
   energy: 'Energy Weapons',
 };
 
+const stripePromise = loadStripe('YOUR_STRIPE_PUBLISHABLE_KEY'); // replace with your key
+
+// Stripe Checkout form component
+const StripeCheckoutForm = ({ total, userId, clearBasket, navigate }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handlePayment = async () => {
+    if (!stripe || !elements) return;
+
+    try {
+      // 1️⃣ Create PaymentIntent
+      const res = await fetch(`http://localhost:5000/orders/create-payment-intent/${userId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const { clientSecret } = await res.json();
+
+      // 2️⃣ Confirm payment
+      const result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: { card: elements.getElement(CardElement) },
+      });
+
+      if (result.error) {
+        alert(`Payment failed: ${result.error.message}`);
+        return;
+      }
+
+      if (result.paymentIntent.status === 'succeeded') {
+        // 3️⃣ Create order in backend
+        const checkoutRes = await fetch(`http://localhost:5000/orders/checkout/${userId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (!checkoutRes.ok) {
+          const msg = await checkoutRes.text();
+          alert(`Order creation failed: ${msg}`);
+          return;
+        }
+
+        clearBasket();
+        alert('Payment successful! Order placed.');
+        navigate('/profile');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Something went wrong during payment.');
+    }
+  };
+
+  return (
+    <div className="stripe-checkout">
+      <CardElement />
+      <button className="checkout-btn" onClick={handlePayment}>
+        Pay £{total.toFixed(2)}
+      </button>
+    </div>
+  );
+};
+
 const Order = () => {
   const navigate = useNavigate();
   const [basket, setBasket] = useState({});
   const [products, setProducts] = useState([]);
 
-  // Fetch products from backend
+  // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -30,7 +93,7 @@ const Order = () => {
     fetchProducts();
   }, []);
 
-  // Fetch basket from backend on mount
+  // Fetch basket
   useEffect(() => {
     const fetchBasket = async () => {
       const user = JSON.parse(localStorage.getItem('user'));
@@ -113,6 +176,8 @@ const Order = () => {
     );
   }
 
+  const user = JSON.parse(localStorage.getItem('user'));
+
   return (
     <div className="order-container">
       <div className="order-header">
@@ -176,50 +241,30 @@ const Order = () => {
           </div>
         </section>
       ))}
+      <div className="mobile-checkout-container">
+        <div className="order-total">
+          <h2>TOTAL: £{total.toFixed(2)}</h2>
+        </div>
 
-      <div className="order-total">
-        <h2>TOTAL: £{total.toFixed(2)}</h2>
-        <button
-          className="checkout-btn"
-          onClick={async () => {
-            try {
-              const user = JSON.parse(localStorage.getItem('user'));
-              if (!user) {
-                alert('Please log in before placing an order.');
-                navigate('/login');
-                return;
-              }
-
-              const res = await fetch(`http://localhost:5000/cart/checkout/${user.id}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-              });
-
-              if (!res.ok) {
-                const msg = await res.text();
-                alert(`Checkout failed: ${msg}`);
-                return;
-              }
-
-              const data = await res.json();
-              console.log('Order placed successfully:', data);
-
-              // Clear basket
-              setBasket({});
-              alert(`Order placed successfully! Total: £${data.total.toFixed(2)}`);
-
-              navigate('/profile');
-            } catch (err) {
-              console.error('Checkout error:', err);
-              alert('Something went wrong during checkout.');
-            }
-          }}
-        >
-          CHECKOUT
-        </button>
+        <div className="stripe-checkout">
+          {user ? (
+            <Elements stripe={stripePromise}>
+              <StripeCheckoutForm
+                total={total}
+                userId={user.id}
+                clearBasket={() => setBasket({})}
+                navigate={navigate}
+              />
+            </Elements>
+          ) : (
+            <button className="checkout-btn" onClick={() => navigate('/login')}>
+              Log in to checkout
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
-};
+}
 
-export default Order;
+      export default Order;

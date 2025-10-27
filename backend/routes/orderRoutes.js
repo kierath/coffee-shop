@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../config/db');
+const Stripe = require('stripe');
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 /**
  * @swagger
@@ -265,4 +267,34 @@ router.post('/checkout/:userId', async (req, res) => {
   }
 });
 
+router.post('/create-payment-intent/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const cartItemsResult = await pool.query(
+      `SELECT cart_items.product_id, cart_items.quantity, products.price
+       FROM cart_items
+       JOIN products ON cart_items.product_id = products.id
+       WHERE cart_items.user_id = $1`,
+      [userId]
+    );
+
+    const cartItems = cartItemsResult.rows;
+    if (!cartItems.length) return res.status(400).json({ message: 'Cart is empty' });
+
+    const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const amount = Math.round(total * 100); // pence
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency: 'gbp',
+      metadata: { userId, cart: JSON.stringify(cartItems) },
+    });
+
+    res.json({ clientSecret: paymentIntent.client_secret });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Stripe payment intent creation failed' });
+  }
+});
 module.exports = router;

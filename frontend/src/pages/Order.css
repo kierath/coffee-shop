@@ -9,7 +9,7 @@ html {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1.7rem 0;
+    padding: 2rem 3rem;
     font-family: 'Inter', sans-serif;
     color: #2B2B2B;
     background-color: #FFF8EA;
@@ -20,20 +20,25 @@ html {
    ORDER HEADER
 =========================== */
 .order-header {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    margin-bottom: 0.7rem;
+    width: 100%;
+    padding: 1.5rem 2rem;
+    background-color: #FFF8EA;
 }
 
 .order-header h1 {
-    font-size: 3.8rem;
+    font-size: 3rem;
     font-weight: 800;
     color: #373737;
-    letter-spacing: 4px;
-    text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
+    letter-spacing: 2px;
+    text-align: center;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
 }
+
 
 .line-container-order {
     display: flex;
@@ -49,11 +54,11 @@ html {
     color: #393939;
     letter-spacing: 1px;
     margin: 0;
-    padding: 0.8rem 0 1.5rem 0;
+    padding: 1rem 0 0.5rem 0;    
 }
 
 .gradient-line {
-    height: 8px;
+    height: 7px;
     width: 21%;
     background: linear-gradient(to right,
             rgba(105, 105, 105, 0.1),
@@ -77,10 +82,6 @@ html {
     transition: all 0.2s ease;
 }
 
-.back-btn:hover {
-    transform: translateX(-4px);
-    opacity: 0.8;
-}
 
 /* ===========================
    ORDER SECTIONS
@@ -91,6 +92,7 @@ html {
     background-color: #FFFFFF;
     border-radius: 1.5rem;
     padding: 2rem;
+    margin-top: 1rem;
     margin-bottom: 3rem;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
 }
@@ -226,7 +228,7 @@ html {
 }
 
 .order-total h2 {
-    font-size: 2rem;
+    font-size: 1.7rem;
     font-weight: 800;
     color: #2B2B2B;
 }
@@ -264,10 +266,41 @@ button.remove-item-btn {
     background: transparent;
 }
 
+/* ===========================
+   STRIPE CARD ELEMENT
+=========================== */
+.stripe-checkout {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    order: 2;
+    margin: 0 auto; 
+    align-items: stretch; 
+    padding: 2rem 1rem;
+}
+
+.stripe-card-element {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid #E0E0E0;
+    background-color: #FFFDF7;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    font-size: 1rem;
+    color: #2B2B2B;
+}
+
+.stripe-card-element:focus {
+    border-color: #373737;
+    box-shadow: 0 0 0 2px rgba(55, 55, 55, 0.15);
+}
+
+
 @media (max-width: 700px) {
     .order-container {
         width: 100%;
-        max-width: 350px;
+        max-width: 500px;
     }
 
     .order-header h1 {
@@ -276,7 +309,7 @@ button.remove-item-btn {
     }
 
     .order-item-header h3 {
-        font-size: 1rem;
+        font-size: 0.8rem;
         font-weight: 800;
     }
 
@@ -288,19 +321,28 @@ button.remove-item-btn {
     }
 
     .order-section-header h2 {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: 800;
         text-transform: uppercase;
     }
 
     .order-section-header h4 {
-        font-size: 1rem;
+        font-size: 0.7rem;
         font-weight: 800;
+    }
+
+    .price {
+        font-size: 0.9rem;
+    }
+
+    .item-controls span {
+        font-weight: 700;
+        font-size: 0.8rem;
     }
 
 
     .line-container-order h5 {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         font-weight: 400;
         letter-spacing: 0.5px;
         padding: 0;
@@ -312,7 +354,7 @@ button.remove-item-btn {
     }
 
     .order-total h2 {
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 800;
     }
 
@@ -323,5 +365,37 @@ button.remove-item-btn {
 
     button.remove-item-btn {
         margin: 0.5rem 0 0.5rem 1rem;
+    }
+
+    .mobile-checkout-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    .order-total {
+        width: 100%;
+        order: 1;
+    }
+
+    .stripe-checkout {
+        width: 100%;
+        order: 2;
+        margin-top: 0;
+        padding: 1rem;
+    }
+
+    .stripe-card-element {
+        font-size: 0.9rem;
+    }
+
+    .checkout-btn {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.8rem 0;
+        margin-top: 0.5rem;
     }
 }
