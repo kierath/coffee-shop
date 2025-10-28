@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import Register from './pages/Register';
 import Menu from './pages/Menu';
 import Order from './pages/Order';
