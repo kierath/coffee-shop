@@ -11,7 +11,7 @@ const OrderHistory = ({ userId }) => {
 
     const fetchOrders = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/orders/${userId}`);
+        const res = await fetch(`https://coffee-shop-backend.onrender.com/orders/${userId}`);
         if (!res.ok) throw new Error('Failed to fetch orders');
         const data = await res.json();
         setOrders(data);

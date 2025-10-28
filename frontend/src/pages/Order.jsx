@@ -25,7 +25,7 @@ const StripeCheckoutForm = ({ total, userId, clearBasket, navigate }) => {
 
     try {
       // 1️⃣ Create PaymentIntent
-      const res = await fetch(`http://localhost:5000/orders/create-payment-intent/${userId}`, {
+      const res = await fetch(`https://coffee-shop-backend.onrender.com/orders/create-payment-intent/${userId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -43,7 +43,7 @@ const StripeCheckoutForm = ({ total, userId, clearBasket, navigate }) => {
 
       if (result.paymentIntent.status === 'succeeded') {
         // 3️⃣ Create order in backend
-        const checkoutRes = await fetch(`http://localhost:5000/orders/checkout/${userId}`, {
+        const checkoutRes = await fetch(`https://coffee-shop-backend.onrender.com/orders/checkout/${userId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
         });
@@ -83,7 +83,7 @@ const Order = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('http://localhost:5000/products');
+        const res = await fetch('https://coffee-shop-backend.onrender.com/products');
         const data = await res.json();
         setProducts(data);
       } catch (err) {
@@ -100,7 +100,7 @@ const Order = () => {
       if (!user) return;
 
       try {
-        const res = await fetch(`http://localhost:5000/cart/${user.id}`);
+        const res = await fetch(`https://coffee-shop-backend.onrender.com/cart/${user.id}`);
         const data = await res.json();
         const initialBasket = {};
         data.items.forEach(item => {
@@ -119,7 +119,7 @@ const Order = () => {
   const addItem = async (id) => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      await fetch(`http://localhost:5000/cart/${user.id}`, {
+      await fetch(`https://coffee-shop-backend.onrender.com/cart/${user.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ productId: id, quantity: 1 }),
@@ -134,9 +134,9 @@ const Order = () => {
     if (!user) return;
 
     if (basket[id] === 1) {
-      await fetch(`http://localhost:5000/cart/${user.id}/${id}`, { method: 'DELETE' });
+      await fetch(`https://coffee-shop-backend.onrender.com/cart/${user.id}/${id}`, { method: 'DELETE' });
     } else {
-      await fetch(`http://localhost:5000/cart/${user.id}/${id}`, {
+      await fetch(`https://coffee-shop-backend.onrender.com/cart/${user.id}/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ quantity: basket[id] - 1 }),
@@ -223,7 +223,7 @@ const Order = () => {
                       aria-label={`Remove ${item.name}`}
                       onClick={async () => {
                         if (user) {
-                          await fetch(`http://localhost:5000/cart/${user.id}/${item.id}`, { method: 'DELETE' });
+                          await fetch(`https://coffee-shop-backend.onrender.com/cart/${user.id}/${item.id}`, { method: 'DELETE' });
                         }
                         const updatedBasket = { ...basket };
                         delete updatedBasket[item.id];
