@@ -15,16 +15,18 @@ const setupSwagger = require('./config/swagger');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const allowedOrigin = 'https://coffee-shop-nu-pearl.vercel.app';
 
 // CORS
 app.use(cors({
-    origin: ['https://coffee-shop-ohi5hcqnu-kieraths-projects.vercel.app'],
+    origin: allowedOrigin,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
 }));
 
 app.options('*', cors({
-    origin: 'https://coffee-shop-ohi5hcqnu-kieraths-projects.vercel.app',
+    origin: allowedOrigin,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
 }));
 

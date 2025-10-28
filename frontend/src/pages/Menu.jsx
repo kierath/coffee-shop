@@ -27,7 +27,9 @@ const Menu = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/products`);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/products`, {
+          withCredentials: true
+        });
         setProducts(res.data);
       } catch (err) {
         console.error(err);
@@ -50,7 +52,10 @@ const Menu = () => {
         await axios.post(`${process.env.REACT_APP_API_URL}/cart/${user.id}`, {
           productId: id,
           quantity: 1
-        });
+        }, 
+      {
+        withCredentials: true
+      });
       } catch (err) {
         console.error('Failed to add item to cart', err);
       }
