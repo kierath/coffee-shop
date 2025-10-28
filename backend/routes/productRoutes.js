@@ -66,9 +66,11 @@ router.get('/', async (req, res) => {
     }
 
     const result = await pool.query(query, values);
+    console.log('Products fetched:', result.rows);
     res.json(result.rows);
   } catch (err) {
     console.error(err.message);
+    console.error('GET /products error:', err); 
     res.status(500).send('Server Error');
   }
 });
