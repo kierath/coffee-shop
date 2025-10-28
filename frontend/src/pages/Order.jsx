@@ -6,14 +6,10 @@ import './Order.css';
 import arrowIcon from '../assets/arrow-icon.png';
 import rubbishIcon from '../assets/rubbish-icon.png';
 
-const categoryMap = { 'Dark Roast': 'dark', 'Cold Arsenal': 'cold', 'Energy Weapon': 'energy' };
-const categoryDisplayNames = {
-  dark: 'Dark Roasts',
-  cold: 'Cold Arsenal',
-  energy: 'Energy Weapons',
-};
+const categoryMap = { 'Dark': 'dark', 'Cold': 'cold', 'Energy': 'energy' };
+const categoryDisplayNames = { dark: 'Dark Roasts', cold: 'Cold Arsenal', energy: 'Energy Weapons' };
 
-const stripePromise = loadStripe('YOUR_STRIPE_PUBLISHABLE_KEY'); // replace with your key
+const stripePromise = loadStripe('YOUR_STRIPE_PUBLISHABLE_KEY'); 
 
 // Stripe Checkout form component
 const StripeCheckoutForm = ({ total, userId, clearBasket, navigate }) => {
@@ -24,25 +20,19 @@ const StripeCheckoutForm = ({ total, userId, clearBasket, navigate }) => {
     if (!stripe || !elements) return;
 
     try {
-      // 1️⃣ Create PaymentIntent
       const res = await fetch(`${process.env.REACT_APP_API_URL}/orders/create-payment-intent/${userId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
       const { clientSecret } = await res.json();
 
-      // 2️⃣ Confirm payment
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: { card: elements.getElement(CardElement) },
       });
 
-      if (result.error) {
-        alert(`Payment failed: ${result.error.message}`);
-        return;
-      }
+      if (result.error) return alert(`Payment failed: ${result.error.message}`);
 
       if (result.paymentIntent.status === 'succeeded') {
-        // 3️⃣ Create order in backend
         const checkoutRes = await fetch(`${process.env.REACT_APP_API_URL}/orders/checkout/${userId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -50,8 +40,7 @@ const StripeCheckoutForm = ({ total, userId, clearBasket, navigate }) => {
 
         if (!checkoutRes.ok) {
           const msg = await checkoutRes.text();
-          alert(`Order creation failed: ${msg}`);
-          return;
+          return alert(`Order creation failed: ${msg}`);
         }
 
         clearBasket();
@@ -79,6 +68,8 @@ const Order = () => {
   const [basket, setBasket] = useState({});
   const [products, setProducts] = useState([]);
 
+  const user = JSON.parse(localStorage.getItem('user'));
+
   // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
@@ -93,60 +84,75 @@ const Order = () => {
     fetchProducts();
   }, []);
 
-  // Fetch basket
+  // Initialize basket for guest or logged-in user
   useEffect(() => {
-    const fetchBasket = async () => {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (!user) return;
+    if (user) {
+      // Logged-in: fetch from backend
+      const fetchBasket = async () => {
+        try {
+          const res = await fetch(`${process.env.REACT_APP_API_URL}/cart/${user.id}`);
+          const data = await res.json();
+          const initialBasket = {};
+          data.items.forEach(item => {
+            initialBasket[item.product_id] = item.quantity;
+          });
+          setBasket(initialBasket);
+          sessionStorage.setItem('basket', JSON.stringify(initialBasket)); 
+        } catch (err) {
+          console.error('Failed to load basket', err);
+        }
+      };
+      fetchBasket();
+    } else {
+      // Guest: read from sessionStorage
+      const saved = sessionStorage.getItem('basket');
+      if (saved) setBasket(JSON.parse(saved));
+    }
+  }, [user]);
 
-      try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/cart/${user.id}`);
-        const data = await res.json();
-        const initialBasket = {};
-        data.items.forEach(item => {
-          initialBasket[item.product_id] = item.quantity;
-        });
-        setBasket(initialBasket);
-      } catch (err) {
-        console.error('Failed to load basket', err);
-      }
-    };
-    fetchBasket();
-  }, []);
-
-  const saveBasket = (updated) => setBasket(updated);
+  const saveBasket = (updated) => {
+    setBasket(updated);
+    sessionStorage.setItem('basket', JSON.stringify(updated));
+  };
 
   const addItem = async (id) => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      await fetch(`${process.env.REACT_APP_API_URL}/cart/${user.id}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productId: id, quantity: 1 }),
-      });
-    }
     const updated = { ...basket, [id]: (basket[id] || 0) + 1 };
     saveBasket(updated);
+
+    if (user) {
+      try {
+        await fetch(`${process.env.REACT_APP_API_URL}/cart/${user.id}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ productId: id, quantity: 1 }),
+        });
+      } catch (err) {
+        console.error('Failed to add item to backend cart', err);
+      }
+    }
   };
 
   const removeItem = async (id) => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) return;
-
-    if (basket[id] === 1) {
-      await fetch(`${process.env.REACT_APP_API_URL}/cart/${user.id}/${id}`, { method: 'DELETE' });
-    } else {
-      await fetch(`${process.env.REACT_APP_API_URL}/cart/${user.id}/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ quantity: basket[id] - 1 }),
-      });
-    }
-
     const updated = { ...basket };
     if (updated[id] > 1) updated[id] -= 1;
     else delete updated[id];
     saveBasket(updated);
+
+    if (user) {
+      try {
+        if (updated[id]) {
+          await fetch(`${process.env.REACT_APP_API_URL}/cart/${user.id}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ quantity: updated[id] }),
+          });
+        } else {
+          await fetch(`${process.env.REACT_APP_API_URL}/cart/${user.id}/${id}`, { method: 'DELETE' });
+        }
+      } catch (err) {
+        console.error('Failed to update backend cart', err);
+      }
+    }
   };
 
   const cartItems = products
@@ -163,11 +169,9 @@ const Order = () => {
     return acc;
   }, {});
 
-  const user = JSON.parse(localStorage.getItem('user'));
-
   return (
     <div className="order-container">
-      {/* Header always visible */}
+      {/* Header */}
       <div className="order-header">
         <button className="back-btn" onClick={() => navigate('/menu')}>
           <img src={arrowIcon} alt="Back Arrow" className="arrow-icon" />
@@ -183,7 +187,6 @@ const Order = () => {
         <h5>{totalItems} ITEMS SELECTED</h5>
       </div>
 
-      {/* Basket items or empty message */}
       {cartItems.length === 0 ? (
         <div className="empty-basket-message">
           <p>Your basket is empty.</p>
@@ -221,14 +224,10 @@ const Order = () => {
                     <button
                       className="remove-item-btn"
                       aria-label={`Remove ${item.name}`}
-                      onClick={async () => {
-                        if (user) {
-                          await fetch(`${process.env.REACT_APP_API_URL}/cart/${user.id}/${item.id}`, { method: 'DELETE' });
-                        }
+                      onClick={() => {
                         const updatedBasket = { ...basket };
                         delete updatedBasket[item.id];
                         saveBasket(updatedBasket);
-                        sessionStorage.setItem('basket', JSON.stringify(updatedBasket));
                       }}
                     >
                       <img src={rubbishIcon} alt="Rubbish Icon" className="rubbish-icon" />
@@ -241,7 +240,6 @@ const Order = () => {
         ))
       )}
 
-      {/* Checkout only visible if there are items */}
       {cartItems.length > 0 && (
         <div className="mobile-checkout-container">
           <div className="order-total">
