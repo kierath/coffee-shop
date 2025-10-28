@@ -27,7 +27,7 @@ const Menu = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get('https://coffee-shop-backend.onrender.com/products');
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/products`);
         setProducts(res.data);
       } catch (err) {
         console.error(err);
@@ -47,7 +47,7 @@ const Menu = () => {
 
     if (user) {
       try {
-        await axios.post(`https://coffee-shop-backend.onrender.com/cart/${user.id}`, {
+        await axios.post(`${process.env.REACT_APP_API_URL}/cart/${user.id}`, {
           productId: id,
           quantity: 1
         });
@@ -65,13 +65,13 @@ const Menu = () => {
 
     if (user && basket[id] === 1) {
       try {
-        await axios.delete(`https://coffee-shop-backend.onrender.com/cart/${user.id}/${id}`);
+        await axios.delete(`${process.env.REACT_APP_API_URL}/cart/${user.id}/${id}`);
       } catch (err) {
         console.error('Failed to remove item from cart', err);
       }
     } else if (user) {
       try {
-        await axios.put(`https://coffee-shop-backend.onrender.com/cart/${user.id}/${id}`, {
+        await axios.put(`${process.env.REACT_APP_API_URL}/cart/${user.id}/${id}`, {
           quantity: basket[id] - 1
         });
       } catch (err) {

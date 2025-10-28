@@ -1,7 +1,7 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-const API_URL = 'https://coffee-shop-backend.onrender.com/auth';
+const API_URL = `${process.env.REACT_APP_API_URL}/auth`;
 
 export const registerUser = (name, email, password) =>
   axios.post(`${API_URL}/register`, { name, email, password }).then(res => res.data);

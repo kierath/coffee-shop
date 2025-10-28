@@ -11,7 +11,7 @@ const options = {
     },
     servers: [
       {
-        url: 'https://coffee-shop-backend.onrender.com',
+        url: '${process.env.REACT_APP_API_URL}',
       },
     ],
   },

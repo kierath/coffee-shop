@@ -21,7 +21,7 @@ function Login() {
 };
 
 const handleThirdPartyLogin = (provider) => {
-    window.location.href = `https://coffee-shop-backend.onrender.com/auth/google`;
+    window.location.href = `${process.env.REACT_APP_API_URL}/auth/google`;
   };
   return (
     <div className="auth-container">
