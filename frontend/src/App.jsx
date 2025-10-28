@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
-import { jwtDecode } from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import Register from './pages/Register';
 import Menu from './pages/Menu';
 import Order from './pages/Order';

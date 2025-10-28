@@ -18,20 +18,19 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:3000',
-    'https://coffee-shop-nu-pearl.vercel.app/'],
+    origin: ['https://coffee-shop-nu-pearl.vercel.app/'],
     credentials: true,
 }));
 app.use(express.json());
-app.use(session({ 
+app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: false, 
+    resave: false,
     saveUninitialized: false,
-    cookie: { 
+    cookie: {
         secure: false,
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 2 //2 hours 
-    } 
+    }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,4 +45,7 @@ app.use('/auth', authRoutes);
 // Swagger
 setupSwagger(app);
 
+app.get('/', (req, res) => {
+  res.send('Backend is running 🚀');
+});
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
