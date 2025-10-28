@@ -10,7 +10,7 @@ const pool = require('../config/db');
  */
 
 router.post('/register', async (req, res) => {
-  
+
   try {
     const { name, email, password } = req.body;
 
@@ -80,7 +80,12 @@ router.get('/google/callback',
     const token = jwt.sign({ id: req.user.id, email: req.user.email, name: req.user.name }, process.env.JWT_SECRET, {
       expiresIn: '1d',
     });
-    res.redirect(`http://localhost:3000/?token=${token}`);
+    const frontendURL = process.env.NODE_ENV === 'production'
+      ? 'https://coffee-shop-git-main-kieraths-projects.vercel.app'
+      : 'http://localhost:3000';
+
+    res.redirect(`${frontendURL}/?token=${token}`);
+
   }
 );
 
