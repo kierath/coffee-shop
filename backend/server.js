@@ -24,12 +24,6 @@ app.use(cors({
     credentials: true,
 }));
 
-app.options('*', cors({
-    origin: allowedOrigin,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true,
-}));
-
 // --- MIDDLEWARE ---
 app.use(express.json());
 app.use(session({

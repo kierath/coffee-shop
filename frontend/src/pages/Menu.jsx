@@ -52,10 +52,10 @@ const Menu = () => {
         await axios.post(`${process.env.REACT_APP_API_URL}/cart/${user.id}`, {
           productId: id,
           quantity: 1
-        }, 
-      {
-        withCredentials: true
-      });
+        },
+          {
+            withCredentials: true
+          });
       } catch (err) {
         console.error('Failed to add item to cart', err);
       }
@@ -70,7 +70,11 @@ const Menu = () => {
 
     if (user && basket[id] === 1) {
       try {
-        await axios.delete(`${process.env.REACT_APP_API_URL}/cart/${user.id}/${id}`);
+        await axios.delete(`${process.env.REACT_APP_API_URL}/cart/${user.id}/${id}`,
+          {
+            withCredentials: true
+          }
+        );
       } catch (err) {
         console.error('Failed to remove item from cart', err);
       }
@@ -78,7 +82,7 @@ const Menu = () => {
       try {
         await axios.put(`${process.env.REACT_APP_API_URL}/cart/${user.id}/${id}`, {
           quantity: basket[id] - 1
-        });
+        }, { withCredentials: true });
       } catch (err) {
         console.error('Failed to update item quantity', err);
       }
