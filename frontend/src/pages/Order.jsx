@@ -6,10 +6,14 @@ import './Order.css';
 import arrowIcon from '../assets/arrow-icon.png';
 import rubbishIcon from '../assets/rubbish-icon.png';
 
-const categoryMap = { 'Dark': 'dark', 'Cold': 'cold', 'Energy': 'energy' };
+const categoryMap = { 
+   'Dark Roast': 'dark',
+   'Cold Arsenal': 'cold', 
+   'Energy Weapon': 'energy' 
+  };
 const categoryDisplayNames = { dark: 'Dark Roasts', cold: 'Cold Arsenal', energy: 'Energy Weapons' };
 
-const stripePromise = loadStripe('YOUR_STRIPE_PUBLISHABLE_KEY'); 
+const stripePromise = loadStripe('YOUR_STRIPE_PUBLISHABLE_KEY');
 
 // Stripe Checkout form component
 const StripeCheckoutForm = ({ total, userId, clearBasket, navigate }) => {
@@ -97,7 +101,7 @@ const Order = () => {
             initialBasket[item.product_id] = item.quantity;
           });
           setBasket(initialBasket);
-          sessionStorage.setItem('basket', JSON.stringify(initialBasket)); 
+          sessionStorage.setItem('basket', JSON.stringify(initialBasket));
         } catch (err) {
           console.error('Failed to load basket', err);
         }
