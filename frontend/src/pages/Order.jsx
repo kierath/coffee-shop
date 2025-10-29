@@ -7,15 +7,15 @@ import arrowIcon from '../assets/arrow-icon.png';
 import rubbishIcon from '../assets/rubbish-icon.png';
 
 const categoryMap = { 
-   'Dark Roast': 'dark',
-   'Cold Arsenal': 'cold', 
-   'Energy Weapon': 'energy' 
-  };
+  'Dark Roast': 'dark',
+  'Cold Arsenal': 'cold', 
+  'Energy Weapon': 'energy' 
+};
 const categoryDisplayNames = { dark: 'Dark Roasts', cold: 'Cold Arsenal', energy: 'Energy Weapons' };
 
 const stripePromise = loadStripe('YOUR_STRIPE_PUBLISHABLE_KEY');
 
-// Stripe Checkout form component
+// Stripe Checkout form
 const StripeCheckoutForm = ({ total, userId, clearBasket, navigate }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -24,12 +24,14 @@ const StripeCheckoutForm = ({ total, userId, clearBasket, navigate }) => {
     if (!stripe || !elements) return;
 
     try {
+      // Create payment intent
       const res = await fetch(`${process.env.REACT_APP_API_URL}/orders/create-payment-intent/${userId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
       const { clientSecret } = await res.json();
 
+      // Confirm payment
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: { card: elements.getElement(CardElement) },
       });
@@ -71,8 +73,7 @@ const Order = () => {
   const navigate = useNavigate();
   const [basket, setBasket] = useState({});
   const [products, setProducts] = useState([]);
-
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
 
   // Fetch products
   useEffect(() => {
@@ -88,30 +89,35 @@ const Order = () => {
     fetchProducts();
   }, []);
 
-  // Initialize basket for guest or logged-in user
+  // Initialize and sync basket
   useEffect(() => {
-    if (user) {
-      // Logged-in: fetch from backend
-      const fetchBasket = async () => {
+    const initializeBasket = async () => {
+      const saved = JSON.parse(sessionStorage.getItem('basket') || '{}');
+
+      if (user) {
+        // Logged-in: fetch backend basket
         try {
           const res = await fetch(`${process.env.REACT_APP_API_URL}/cart/${user.id}`);
           const data = await res.json();
-          const initialBasket = {};
+          const backendBasket = {};
           data.items.forEach(item => {
-            initialBasket[item.product_id] = item.quantity;
+            backendBasket[item.product_id] = item.quantity;
           });
-          setBasket(initialBasket);
-          sessionStorage.setItem('basket', JSON.stringify(initialBasket));
+
+          // Merge guest basket into backend basket
+          const mergedBasket = { ...saved, ...backendBasket };
+          setBasket(mergedBasket);
+          sessionStorage.setItem('basket', JSON.stringify(mergedBasket));
         } catch (err) {
           console.error('Failed to load basket', err);
         }
-      };
-      fetchBasket();
-    } else {
-      // Guest: read from sessionStorage
-      const saved = sessionStorage.getItem('basket');
-      if (saved) setBasket(JSON.parse(saved));
-    }
+      } else {
+        // Guest: use sessionStorage
+        setBasket(saved);
+      }
+    };
+
+    initializeBasket();
   }, [user]);
 
   const saveBasket = (updated) => {
@@ -264,7 +270,10 @@ const Order = () => {
                 />
               </Elements>
             ) : (
-              <button className="checkout-btn" onClick={() => navigate('/login')}>
+              <button
+                className="checkout-btn"
+                onClick={() => navigate('/login', { state: { fromOrder: true } })}
+              >
                 Log in to checkout
               </button>
             )}
