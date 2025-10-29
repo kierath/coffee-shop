@@ -88,6 +88,7 @@ const Menu = () => {
       }
     }
 
+    //updates basket
     const updated = { ...basket };
     if (updated[id] > 1) updated[id] -= 1;
     else delete updated[id];
