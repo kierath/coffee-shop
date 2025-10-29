@@ -13,7 +13,7 @@ const categoryMap = {
 };
 const categoryDisplayNames = { dark: 'Dark Roasts', cold: 'Cold Arsenal', energy: 'Energy Weapons' };
 
-const stripePromise = loadStripe(`${process.env.STRIPE_SECRET_KEY}`);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 // Stripe Checkout form
 const StripeCheckoutForm = ({ total, userId, clearBasket, navigate }) => {
