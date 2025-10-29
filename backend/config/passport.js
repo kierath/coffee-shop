@@ -1,13 +1,18 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const pool = require('../config/db');
+const callbackURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://coffee-shop-backend-5q2z.onrender.com/auth/google/callback'
+    : 'http://localhost:5000/auth/google/callback';
+
 
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: '/auth/google/callback',
+      callbackURL: callbackURL,
     },
     async (_accessToken, _refreshToken, profile, done) => {
       try {
