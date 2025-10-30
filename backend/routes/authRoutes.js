@@ -81,7 +81,7 @@ router.get('/google/callback',
       expiresIn: '1d',
     });
     const frontendURL = process.env.NODE_ENV === 'production'
-      ? 'https://coffee-shop-git-main-kieraths-projects.vercel.app'
+      ? 'https://coffee-shop-nu-pearl.vercel.app'
       : 'http://localhost:3000';
 
     res.redirect(`${frontendURL}/?token=${token}`);
